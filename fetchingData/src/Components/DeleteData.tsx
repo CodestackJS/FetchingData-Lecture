@@ -1,5 +1,7 @@
-import axios from "axios";
+// import axios from "axios";
 import { useEffect, useState } from "react";
+import apiClient, {CanceledError} from "../services/apiClient";
+
 
 interface User {
   id: number;
@@ -17,7 +19,7 @@ const DeleteData = () => {
   ///Create a function to helps us fetch our data with axios
   const FetchData = () => {
     setIsLoading(true);
-    axios
+    apiClient
       .get("https://jsonplaceholder.typicode.com/users")
       .then((response) => {
         setUsers(response.data)
@@ -44,7 +46,7 @@ const DeleteData = () => {
 
   return (
     <>
-      <h1 className="text-center">CRUD delete with Axios</h1>
+      <h1 className="text-center">CRUD delete with apiClient</h1>
       <ul className="list-group">
         {users.map((user) => (
           <li className="list-group-item d-flex justify-content-between" key={user.id}>{user.username}<button onClick={() => userDelete(user)} className="btn btn-outline-danger">Delete</button> </li>

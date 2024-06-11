@@ -1,9 +1,11 @@
 import AsyncAwait from "./Components/AsyncAwait"
+import CreateData from "./Components/CreateData"
 import DeleteData from "./Components/DeleteData"
 import FetchingAxios from "./Components/FetchingAxios"
 import FetchingWFetch from "./Components/FetchingWFetch"
 import LoadingIndicator from "./Components/LoadingIndicator"
 import ProductList from "./Components/ProductList"
+import UpdateData from "./Components/UpdateData"
 import UseEffectExamples from "./Components/UseEffectExamples"
 import UseEffectExamples2 from "./Components/UseEffectExamples2"
 
@@ -16,7 +18,9 @@ const App = () => {
     <>
         <h1 className="text-center">React Fetching Data Examples, Using Axios, services, Http,CRUD</h1>
         {/* <DeleteData/> */}
-        <LoadingIndicator/>
+        {/* <CreateData/> */}
+        <UpdateData/>
+        {/* <LoadingIndicator/> */}
         {/* <AsyncAwait/> */}
         {/* <FetchingWFetch/> */}
         {/* <FetchingAxios/> */}
