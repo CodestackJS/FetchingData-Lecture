@@ -1,16 +1,17 @@
-// import axios from "axios";
 import { useEffect, useState } from "react";
-// import apiClient, {CanceledError} from "../services/apiClient";
-import axios from "axios";
+import apiClient from "../services/apiClient";
+import UserService, { User } from "../services/UserService";
+// import apiClient from "../services/apiClient";
+
+// interface User {
+//   id: number;
+//   name: string;
+//   // username: string;
+// }
 
 
-interface User {
-  id: number;
-  name: string;
-  // username: string;
-}
 
-const UpdateData = () => {
+const CreateDataService = () => {
   //we need a useState to help us hold the state of our users
   const [users, setUsers] = useState<User[]>([]);
   const [error, setError] = useState('');
@@ -21,9 +22,9 @@ const UpdateData = () => {
   const FetchData = () => {
     setIsLoading(true);
     // apiClient
-    axios
-      .get('https://jsonplaceholder.typicode.com/users')
-      .then((response) => {
+    const {request} = UserService.getAll<User>();
+    request
+      .then((response) => { 
         setUsers(response.data)
         setIsLoading(false);
       } )
@@ -49,32 +50,36 @@ const UpdateData = () => {
 // *******************addUser Function *********************
 
   ///Lets create a helper function to help us delete our users from our front end UI
-const updateUser = (user:User) => {
-  const originalUsers = [...users]
-  const updatedUser = {...user, name: user.name + "!"}
-  setUsers(users.map(u => u.id === user.id ? updatedUser : u))
-  // apiClient
-  axios
-  .put('https://jsonplaceholder.typicode.com/users/' + user.id, updatedUser)
-  .catch(error => {
-    setError(error.message)
-    setUsers(originalUsers)
-  })
-}
-
-
+  const addUser = () => {
+   // we are going to have a new object with id and name
+   const originalUsers = [...users]
+   const newUser = {id: 0, name: 'Aaron'}
+   //set our users and spread all users and add our new user
+   setUsers([newUser,...users])
+   //we need to send this updated data to our back-end
+  //  apiClient
+  apiClient
+   .post('/users', newUser)
+   .then(response => setUsers([response.data, ...users]))
+   .catch(error => {
+    setError(error.message);
+    setUsers(originalUsers);
+    }) 
+   }
+   
+  
 
   return (
     <>
-      <h1 className="text-center">CRUD Update with Axios</h1>
-      {/* <button className="btn btn-outline-primary mx-3 mb-3" onClick={addUser}>Add</button> */}
+      <h1 className="text-center">CRUD Create with Axios</h1>
+      <button className="btn btn-outline-primary mx-3 mb-3" onClick={addUser}>Add</button>
       <ul className="list-group">
         {users.map((user) => (
           <li 
           className="list-group-item d-flex justify-content-between" 
           key={user.id}> {user.name}
           
-          <button className="btn btn-outline-secondary" onClick={() => updateUser(user)}>Update</button> </li>
+          <button className="btn btn-outline-danger">Delete</button> </li>
         ))}
      
         { error && <p className="text-danger">{error}</p>}
@@ -84,4 +89,4 @@ const updateUser = (user:User) => {
   );
 };
 
-export default UpdateData;
+export default CreateDataService;

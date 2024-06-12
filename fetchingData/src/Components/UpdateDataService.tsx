@@ -1,7 +1,8 @@
 // import axios from "axios";
 import { useEffect, useState } from "react";
+import apiClient from "../services/apiClient";
+import UserService from "../services/UserService";
 // import apiClient, {CanceledError} from "../services/apiClient";
-import axios from "axios";
 
 
 interface User {
@@ -20,9 +21,11 @@ const UpdateData = () => {
   ///Create a function to helps us fetch our data with axios
   const FetchData = () => {
     setIsLoading(true);
+    const {request} = UserService.getAll<User>()
+    request
     // apiClient
-    axios
-      .get('https://jsonplaceholder.typicode.com/users')
+    // apiClient
+    //   .get('https://jsonplaceholder.typicode.com/users')
       .then((response) => {
         setUsers(response.data)
         setIsLoading(false);
@@ -54,8 +57,8 @@ const updateUser = (user:User) => {
   const updatedUser = {...user, name: user.name + "!"}
   setUsers(users.map(u => u.id === user.id ? updatedUser : u))
   // apiClient
-  axios
-  .put('https://jsonplaceholder.typicode.com/users/' + user.id, updatedUser)
+  apiClient
+  .put('/users/' + user.id, updatedUser)
   .catch(error => {
     setError(error.message)
     setUsers(originalUsers)

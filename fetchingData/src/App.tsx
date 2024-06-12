@@ -1,5 +1,6 @@
 import AsyncAwait from "./Components/AsyncAwait"
 import CreateData from "./Components/CreateData"
+import CreateDataService from "./Components/CreateDataService"
 import DeleteData from "./Components/DeleteData"
 import FetchingAxios from "./Components/FetchingAxios"
 import FetchingWFetch from "./Components/FetchingWFetch"
@@ -17,9 +18,10 @@ const App = () => {
   return (
     <>
         <h1 className="text-center">React Fetching Data Examples, Using Axios, services, Http,CRUD</h1>
+        <CreateDataService/>
         {/* <DeleteData/> */}
         {/* <CreateData/> */}
-        <UpdateData/>
+        {/* <UpdateData/> */}
         {/* <LoadingIndicator/> */}
         {/* <AsyncAwait/> */}
         {/* <FetchingWFetch/> */}

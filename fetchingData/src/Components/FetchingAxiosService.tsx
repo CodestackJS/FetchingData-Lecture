@@ -1,7 +1,8 @@
 // import axios from "axios";
 import { useEffect, useState } from "react";
+import apiClient from "../services/apiClient";
+import UserService from "../services/UserService";
 // import apiClient, {CanceledError}from "../services/apiClient";
-import axios from "axios";
 
 interface User {
   id: number;
@@ -16,9 +17,10 @@ const FetchingAxios = () => {
 
   ///Create a function to helps us fetch our data with axios
   const FetchData = () => {
+    const {request} = UserService.getAll<User>()
     // apiClient
-    axios
-      .get("https://jsonplaceholder.typicode.com/users")
+    apiClient
+      .get("/users")
       .then((response) => setUsers(response.data))
       .catch(error => setError(error.message)
       )
