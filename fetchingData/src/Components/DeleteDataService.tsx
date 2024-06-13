@@ -1,7 +1,8 @@
 // import axios from "axios";
-import { useEffect, useState } from "react";
+// import { useEffect, useState } from "react";
 // import apiClient from "../services/apiClient";
 import UserService, { User } from "../services/UserService";
+import useUsers from "../hooks/useUsers";
 // import apiClient, {CanceledError} from "../services/apiClient";
 
 
@@ -12,35 +13,38 @@ import UserService, { User } from "../services/UserService";
 // }
 
 const DeleteDataService = () => {
-  //we need a useState to help us hold the state of our users
-  const [users, setUsers] = useState<User[]>([]);
-  const [error, setError] = useState('');
-  //UseState for our isLoading indicator
-  const [isLoading, setIsLoading] = useState(false);
 
-  ///Create a function to helps us fetch our data with axios
-  const FetchData = () => {
-    setIsLoading(true);
-    const {request} = UserService.getAll<User>()
-    request
-    // apiClient
-      // .get("/users")
-      .then((response) => {
-        setUsers(response.data)
-        setIsLoading(false);
-      } )
-      .catch(error => {
-        setError(error.message)
-        setIsLoading(false);
-      }
-      )
-  };
+  const {users, setUsers,error, setError, isLoading, setIsLoading} = useUsers();
 
-  //UseEffect to help us with our FetchingData
+  // //we need a useState to help us hold the state of our users
+  // const [users, setUsers] = useState<User[]>([]);
+  // const [error, setError] = useState('');
+  // //UseState for our isLoading indicator
+  // const [isLoading, setIsLoading] = useState(false);
 
-  useEffect(() => {
-    FetchData();
-  }, []);
+  // ///Create a function to helps us fetch our data with axios
+  // const FetchData = () => {
+  //   setIsLoading(true);
+  //   const {request} = UserService.getAll<User>()
+  //   request
+  //   // apiClient
+  //     // .get("/users")
+  //     .then((response) => {
+  //       setUsers(response.data)
+  //       setIsLoading(false);
+  //     } )
+  //     .catch(error => {
+  //       setError(error.message)
+  //       setIsLoading(false);
+  //     }
+  //     )
+  // };
+
+  // //UseEffect to help us with our FetchingData
+
+  // useEffect(() => {
+  //   FetchData();
+  // }, []);
 
 
   ///Lets create a helper function to help us delete our users from our front end UI

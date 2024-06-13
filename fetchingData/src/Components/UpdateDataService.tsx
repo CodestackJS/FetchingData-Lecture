@@ -1,7 +1,8 @@
 // import axios from "axios";
-import { useEffect, useState } from "react";
+// import { useEffect, useState } from "react";
+import useUsers from "../hooks/useUsers";
 import apiClient from "../services/apiClient";
-import UserService from "../services/UserService";
+// import UserService from "../services/UserService";
 // import apiClient, {CanceledError} from "../services/apiClient";
 
 
@@ -12,36 +13,40 @@ interface User {
 }
 
 const UpdateData = () => {
-  //we need a useState to help us hold the state of our users
-  const [users, setUsers] = useState<User[]>([]);
-  const [error, setError] = useState('');
-  //UseState for our isLoading indicator
-  const [isLoading, setIsLoading] = useState(false);
 
-  ///Create a function to helps us fetch our data with axios
-  const FetchData = () => {
-    setIsLoading(true);
-    const {request} = UserService.getAll<User>()
-    request
-    // apiClient
-    // apiClient
-    //   .get('https://jsonplaceholder.typicode.com/users')
-      .then((response) => {
-        setUsers(response.data)
-        setIsLoading(false);
-      } )
-      .catch(error => {
-        setError(error.message)
-        setIsLoading(false);
-      }
-      )
-  };
+  const {users, setUsers,error, setError, isLoading, setIsLoading} = useUsers();
 
-  //UseEffect to help us with our FetchingData
 
-  useEffect(() => {
-    FetchData();
-  }, []);
+  // //we need a useState to help us hold the state of our users
+  // const [users, setUsers] = useState<User[]>([]);
+  // const [error, setError] = useState('');
+  // //UseState for our isLoading indicator
+  // const [isLoading, setIsLoading] = useState(false);
+
+  // ///Create a function to helps us fetch our data with axios
+  // const FetchData = () => {
+  //   setIsLoading(true);
+  //   const {request} = UserService.getAll<User>()
+  //   request
+  //   // apiClient
+  //   // apiClient
+  //   //   .get('https://jsonplaceholder.typicode.com/users')
+  //     .then((response) => {
+  //       setUsers(response.data)
+  //       setIsLoading(false);
+  //     } )
+  //     .catch(error => {
+  //       setError(error.message)
+  //       setIsLoading(false);
+  //     }
+  //     )
+  // };
+
+  // //UseEffect to help us with our FetchingData
+
+  // useEffect(() => {
+  //   FetchData();
+  // }, []);
   
 
 // ******************* addDelete Function *********************

@@ -1,6 +1,7 @@
-import { useEffect, useState } from "react";
+// import { useEffect, useState } from "react";
 import apiClient from "../services/apiClient";
-import UserService, { User } from "../services/UserService";
+// import UserService, { User } from "../services/UserService";
+import useUsers from "../hooks/useUsers";
 // import apiClient from "../services/apiClient";
 
 // interface User {
@@ -12,34 +13,38 @@ import UserService, { User } from "../services/UserService";
 
 
 const CreateDataService = () => {
+
+  const {users, setUsers,error, setError, isLoading, setIsLoading} = useUsers();
+
+
   //we need a useState to help us hold the state of our users
-  const [users, setUsers] = useState<User[]>([]);
-  const [error, setError] = useState('');
-  //UseState for our isLoading indicator
-  const [isLoading, setIsLoading] = useState(false);
+  // const [users, setUsers] = useState<User[]>([]);
+  // const [error, setError] = useState('');
+  // //UseState for our isLoading indicator
+  // const [isLoading, setIsLoading] = useState(false);
 
-  ///Create a function to helps us fetch our data with axios
-  const FetchData = () => {
-    setIsLoading(true);
-    // apiClient
-    const {request} = UserService.getAll<User>();
-    request
-      .then((response) => { 
-        setUsers(response.data)
-        setIsLoading(false);
-      } )
-      .catch(error => {
-        setError(error.message)
-        setIsLoading(false);
-      }
-      )
-  };
+  // ///Create a function to helps us fetch our data with axios
+  // const FetchData = () => {
+  //   setIsLoading(true);
+  //   // apiClient
+  //   const {request} = UserService.getAll<User>();
+  //   request
+  //     .then((response) => { 
+  //       setUsers(response.data)
+  //       setIsLoading(false);
+  //     } )
+  //     .catch(error => {
+  //       setError(error.message)
+  //       setIsLoading(false);
+  //     }
+  //     )
+  // };
 
-  //UseEffect to help us with our FetchingData
+  // //UseEffect to help us with our FetchingData
 
-  useEffect(() => {
-    FetchData();
-  }, []);
+  // useEffect(() => {
+  //   FetchData();
+  // }, []);
   
 
 // ******************* addDelete Function *********************
